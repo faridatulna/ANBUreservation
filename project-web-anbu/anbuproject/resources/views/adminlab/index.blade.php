@@ -95,7 +95,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="bg-info">
+                                                        <tr class="bg-white" style="color: black">
                                                             <td>Beliana</td>
                                                             <td>051399743749</td>   
                                                             <td>beliana@gmail.com</td>

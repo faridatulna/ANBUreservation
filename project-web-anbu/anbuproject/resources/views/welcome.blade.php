@@ -59,6 +59,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th>NRP</th>
+                                                        <th>LAB</th>
+                                                        <th>Nomor PC</th>
                                                         <th>Tanggal Reservasi</th>
                                                         <th>Status</th>
                                                     </tr>
@@ -66,11 +68,15 @@
                                                 <tbody style="color: white;">
                                                     <tr class="bg-warning">
                                                         <td>05116712357970</td>
+                                                        <td>KCV</td>
+                                                        <td>PC001</td>
                                                         <td>09 - 04 - 2019</td>
                                                         <td>Belum Disetujui</td>
                                                     </tr>
                                                     <tr class="bg-success">
                                                         <td>05116712357970</td>
+                                                        <td>RPL</td>
+                                                        <td>PC001</td>
                                                         <td>09 - 04 - 2019</td>
                                                         <td>Disetujui</td>
                                                     </tr>
