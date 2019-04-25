@@ -10,19 +10,25 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Reservation;
+
+// Reservation
+Route::resource('reservation','ReservationController');
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $reservations = Reservation::all();
+    return view('welcome', compact('reservations'));
+})->name('welcome');
 
-Route::get('/home', function () {
-    return view('home');
-});
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/userta', 'usertaController@index')->name('home');
+// admin
+Route::get('/admin', 'adminlabController@index')->name('admin.index')->middleware('auth');
+Route::post('setuju/{id}', 'adminlabController@setuju')->name('admin.setuju')->middleware('auth');
 
+// kalab
+Route::get('/kalab', 'kalabController@index')->name('kalab.dashboard')->middleware('auth');
 
-// Auth::routes();
-Route::get('/admin', 'adminlabController@index')->name('admin.dashboard');
-Route::get('/kalab', 'kalabController@index')->name('kalab.dashboard');
+// apa ini?
 Route::get('/main', 'MainController@index');

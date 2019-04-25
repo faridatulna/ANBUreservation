@@ -37,24 +37,25 @@
 
                     <section id="intro" class="wrapper style1 fullscreen fade-up">
                         <div class="inner">
-                            <h2> LOGIN </h2>
+                            <h2> LOGIN</h2>
                             <br>
                             
-                            <form method="post" action="#">
+                            <form method="post" action="{{ route('login') }}">
+                                @csrf
                                 <div class="row gtr-uniform" style="justify-content: center;">
                                     <div class="col-7 ">
-                                        <label for="nama">Username</label>
-                                        <input type="text" name="uname" id="uname" value="" placeholder="Username" required />
+                                        <label for="nama">Email</label>
+                                        <input type="text" name="email" id="email" value="" placeholder="Email" required />
                                     </div>
                                     <div class="col-7">
                                         <label for="nrp">Password</label>
-                                        <input type="password" name="pass" id="pass" value="" placeholder="Password" required />
+                                        <input type="password" name="password" id="pass" value="" placeholder="Password" required />
                                     </div>
                                                     
                                     <div class="col-7">
                                         <ul class="actions">
                                             <li><input type="submit" value="Login" class="primary" /></li>
-                                            <li><input type="reset" value="Reset" /></li>
+                                            <!-- <li><input type="reset" value="Reset" /></li> -->
                                         </ul>
                                     </div>
                                 </div>

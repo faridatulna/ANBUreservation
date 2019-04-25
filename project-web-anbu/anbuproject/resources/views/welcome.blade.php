@@ -66,7 +66,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody style="color: white;">
-                                                    <tr class="bg-warning">
+                                                    <!-- <tr class="bg-warning">
                                                         <td>05116712357970</td>
                                                         <td>KCV</td>
                                                         <td>PC001</td>
@@ -79,7 +79,46 @@
                                                         <td>PC001</td>
                                                         <td>09 - 04 - 2019</td>
                                                         <td>Disetujui</td>
+                                                    </tr> -->
+                                                @foreach($reservations as $reservation)
+                                                    @if($reservation->status == 1)
+                                                    <tr class="bg-info">
+                                                        <td>{{$reservation->nrp}}</td>
+                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                        <td>Verifikasi Admin</td>
                                                     </tr>
+                                                    @elseif($reservation->status == 2)
+                                                    <tr class="bg-primary">
+                                                        <td>{{$reservation->nrp}}</td>
+                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                        <td>Verifikasi Kalab</td>
+                                                    </tr>
+                                                    @elseif($reservation->status == 3)
+                                                    <tr class="bg-success">
+                                                        <td>{{$reservation->nrp}}</td>
+                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                        <td>Disetujui</td>
+                                                    </tr>
+                                                    @elseif($reservation->status == 4)
+                                                    <tr class="bg-danger">
+                                                        <td>{{$reservation->nrp}}</td>
+                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                        <td>Dibatalkan</td>
+                                                    </tr>
+                                                    @elseif($reservation->status == 5)
+                                                    <tr class="bg-danger">
+                                                        <td>{{$reservation->nrp}}</td>
+                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                        <td>Ditolak</td>
+                                                    </tr>
+                                                    @elseif($reservation->status == 0)
+                                                    <tr class="bg-warning">
+                                                        <td>{{$reservation->nrp}}</td>
+                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                        <td>Diajukan</td>
+                                                    </tr>
+                                                    @endif
+                                                @endforeach
                                                 </tbody>
                                                 <!-- <tfoot>
                                                     <tr>
@@ -90,7 +129,7 @@
                                             </table>
                                 </div>
 						</div>
-					</section>
+					</section> 
 
 				<!-- One -->
 					<section id="one" class="wrapper style3 fade-up">
@@ -98,7 +137,8 @@
 							<h2>DAFTAR</h2>
                             <br>
 
-							<form method="post" action="#">
+							<form method="post" action="{{ route('reservation.store') }}">
+                                @csrf
                                         <div class="row gtr-uniform" style="justify-content: center;">
                                             <div class="col-6 ">
                                             	<label for="nama">Nama</label>
@@ -109,15 +149,15 @@
                                                 <input type="text" name="nrp" id="nrp" value="" placeholder="NRP" required />
                                             </div>
                                             <div class="col-6">
-                                            	<label for="notelp">No.TELP</label>
-                                                <input type="text" name="notelp" id="notelp" value="" placeholder="No.TELP" required/>
+                                            	<label for="no_hp">No.TELP</label>
+                                                <input type="text" name="no_hp" id="no_hp" value="" placeholder="No.TELP" required/>
                                             </div>
                                             <div class="col-6">
                                             	<label for="email">Email</label>
                                                 <input type="email" name="email" id="email" value="" placeholder="Email" required />
                                             </div>
                                             <div class="col-6">
-                                                <select name="labs" id="labs">
+                                                <select name="id_lab" id="labs">
                                                     <option value="">- Nama LAB -</option>
                                                     <option value="1">RPL</option>
                                                     <option value="1">KCV</option>
@@ -126,7 +166,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-6">
-                                                <select name="PCs" id="PCs">
+                                                <select name="no_pc" id="PCs">
                                                     <option value="">- Kode PC -</option>
                                                     <option value="1">1</option>
                                                     <option value="1">2</option>
@@ -137,12 +177,11 @@
 
                                             <div class="col-7">
                                                 <label class="button icon fa-upload" for="my-file-selector">
-                                                <input id="my-file-selector" type="file" style="display:none" 
+                                                <input name="proposal" id="my-file-selector" type="file" style="display:none" 
                                                 onchange="$('#upload-file-info').html(this.files[0].name)">
                                                 Unggah Berkas
                                                 </label>
                                                 <span class='label label-info' id="upload-file-info"></span>
-
                                             </div>
                                             
                                                     
