@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Reservation;
 use App\Computer;
-use Illuminate\Support\Facades\Auth;
-use Symfony\Component\Console\Input\Input;
 
 class adminlabController extends Controller
 {
@@ -23,7 +21,7 @@ class adminlabController extends Controller
                                     ->*/where('status',0)
                                     ->get();
         // die ($reservations);
-        $computers = Computer::all();
+        // $computers = Computer::all();
         return view('adminlab.index', compact('reservations'));
     }
 
@@ -33,6 +31,6 @@ class adminlabController extends Controller
         // dd($request->all());
         $reservation->status = $request->input('status');
         $reservation->save();
-        return redirect()->route('admin.index');
+        return redirect()->route('adminlab.index');
     }
 }

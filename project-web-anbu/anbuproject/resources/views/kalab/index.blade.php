@@ -70,12 +70,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody style="color: white;">
+                                                @foreach($reservations as $reservation)
                                                 <tr >
-                                                    <td>05</td>
-                                                    <td>01</td>
-                                                    <td>05116712357970</td>
-                                                    <td>Beliana</td>
-                                                    <td>09 - 04 - 2019</td>
+                                                    <td>{{$reservation->id}}</td>
+                                                    <td>{{$reservation->no_pc}}</td>
+                                                    <td>{{$reservation->nrp}}</td>
+                                                    <td>{{$reservation->nama}}</td>
+                                                    <td>{{$reservation->tgl_pinjam}}</td>
                                                     <td class="clickable" data-toggle="collapse" id="row1" data-target=".row1"><button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>LIHAT</button></td>
                                                 </tr>
                                                 <table class="table-responsive-md collapse row1" style="justify-content: center;"> <!--buat nyambungin ke db ntar pake kode reservasi-->
@@ -91,22 +92,26 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="bg-info">
-                                                            <td>Beliana</td>
-                                                            <td>051399743749</td>   
-                                                            <td>beliana@gmail.com</td>
-                                                            <td>0988673683486</td>
+                                                            <td>{{$reservation->nama}}</td>
+                                                            <td>{{$reservation->nrp}}</td>   
+                                                            <td>{{$reservation->email}}</td>
+                                                            <td>{{$reservation->no_hp}}</td>
                                                             <td><button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>Lihat</button></td>
                                                             <td><button class="btn btn-primary btn-sm"><i class="fas fa-download fa-fw"></i>Unduh</button></td>
                                                         </tr>
                                                     </tbody>
                                                     <tfoot>
-                                                        <tr>
-                                                            <td colspan="4"></td>
-                                                            <td ><button class="btn btn-success btn-sm">Setujui</button></td>
-                                                            <td ><button class="btn btn-danger btn-sm">Batalkan</button></td>
-                                                        </tr>
+                                                            <form method="POST" action="{{ route('kalab.setuju', $reservation->id) }}">
+                                                                    @csrf
+                                                                    <tr>
+                                                                        <td colspan="4"></td>
+                                                                        <td ><button class="btn btn-success btn-sm" name="status" value="3">Setujui</button></td>
+                                                                        <td ><button class="btn btn-danger btn-sm" name="status" value="5">Batalkan</button></td>
+                                                                    </tr>
+                                                            </form>
                                                     </tfoot>
                                                 </table>
+                                                @endforeach
                                                 
                                             </tbody>
 

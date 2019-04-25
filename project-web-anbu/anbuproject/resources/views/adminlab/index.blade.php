@@ -74,8 +74,8 @@
                                                     <th>Status</th>   
                                                 </tr>
                                             </thead>
-                                            @foreach($reservations as $reservation)
                                             <tbody style="color: white;">
+                                                @foreach($reservations as $reservation)
                                                 <tr >
                                                     <td>{{$reservation->id}}</td>
                                                     <td>{{$reservation->no_pc}}</td>
@@ -115,9 +115,9 @@
                                                             </tr>
                                                         </form>
                                                     </tfoot>
-                                                    @endforeach
+                                                    
                                                 </table>
-                                                
+                                                @endforeach
                                             </tbody>
 
                                         </table>
