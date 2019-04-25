@@ -83,37 +83,49 @@
                                                 @foreach($reservations as $reservation)
                                                     @if($reservation->status == 1)
                                                     <tr class="bg-info">
-                                                        <td>{{$reservation->nrp}}</td>
-                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                            <td>{{$reservation->nrp}}</td>
+                                                            <td>{{$reservation->id_lab}}</td>
+                                                            <td>{{$reservation->no_pc}}</td>
+                                                            <td>{{$reservation->tgl_pinjam}}</td>
                                                         <td>Verifikasi Admin</td>
                                                     </tr>
                                                     @elseif($reservation->status == 2)
                                                     <tr class="bg-primary">
-                                                        <td>{{$reservation->nrp}}</td>
-                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                            <td>{{$reservation->nrp}}</td>
+                                                            <td>{{$reservation->id_lab}}</td>
+                                                            <td>{{$reservation->no_pc}}</td>
+                                                            <td>{{$reservation->tgl_pinjam}}</td>
                                                         <td>Verifikasi Kalab</td>
                                                     </tr>
                                                     @elseif($reservation->status == 3)
                                                     <tr class="bg-success">
-                                                        <td>{{$reservation->nrp}}</td>
-                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                            <td>{{$reservation->nrp}}</td>
+                                                            <td>{{$reservation->id_lab}}</td>
+                                                            <td>{{$reservation->no_pc}}</td>
+                                                            <td>{{$reservation->tgl_pinjam}}</td>
                                                         <td>Disetujui</td>
                                                     </tr>
                                                     @elseif($reservation->status == 4)
                                                     <tr class="bg-danger">
-                                                        <td>{{$reservation->nrp}}</td>
-                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                            <td>{{$reservation->nrp}}</td>
+                                                            <td>{{$reservation->id_lab}}</td>
+                                                            <td>{{$reservation->no_pc}}</td>
+                                                            <td>{{$reservation->tgl_pinjam}}</td>
                                                         <td>Dibatalkan</td>
                                                     </tr>
                                                     @elseif($reservation->status == 5)
                                                     <tr class="bg-danger">
-                                                        <td>{{$reservation->nrp}}</td>
-                                                        <td>{{$reservation->tgl_pinjam}}</td>
+                                                            <td>{{$reservation->nrp}}</td>
+                                                            <td>{{$reservation->id_lab}}</td>
+                                                            <td>{{$reservation->no_pc}}</td>
+                                                            <td>{{$reservation->tgl_pinjam}}</td>
                                                         <td>Ditolak</td>
                                                     </tr>
                                                     @elseif($reservation->status == 0)
                                                     <tr class="bg-warning">
                                                         <td>{{$reservation->nrp}}</td>
+                                                        <td>{{$reservation->id_lab}}</td>
+                                                        <td>{{$reservation->no_pc}}</td>
                                                         <td>{{$reservation->tgl_pinjam}}</td>
                                                         <td>Diajukan</td>
                                                     </tr>
