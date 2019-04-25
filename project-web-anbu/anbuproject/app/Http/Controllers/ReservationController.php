@@ -44,7 +44,13 @@ class ReservationController extends Controller
         $reservation->id_lab = $request->id_lab;
         $reservation->no_pc = $request->no_pc;
         $reservation->no_hp = $request->no_hp;
-        $reservation->proposal = $request->proposal;
+		//File Upload
+		$file = $request->file('proposal');
+		$inputFile['namafile'] = time().".".$file->getClientOriginalExtension();
+		$desPath = public_path('/files');
+		$file->move($desPath,$inputFile['namafile']);
+		$reservation->proposal = $inputFile['namafile'];
+		//
         $reservation->status = 0;
         $reservation->tgl_pinjam = Carbon::now();
         $reservation->save();

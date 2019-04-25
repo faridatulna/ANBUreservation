@@ -149,7 +149,7 @@
 							<h2>DAFTAR</h2>
                             <br>
 
-							<form method="post" action="{{ route('reservation.store') }}">
+							<form method="post" action="{{ route('reservation.store') }}" enctype="multipart/form-data">
                                 @csrf
                                         <div class="row gtr-uniform" style="justify-content: center;">
                                             <div class="col-6 ">
