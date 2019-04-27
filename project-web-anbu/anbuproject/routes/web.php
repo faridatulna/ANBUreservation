@@ -13,7 +13,9 @@
 use App\Reservation;
 
 // Reservation
-Route::resource('reservation','ReservationController');
+Route::resource('reservation','ReservationController')->only([
+    'store'
+]);
 
 Route::get('/', function () {
     $reservations = Reservation::all();
@@ -24,8 +26,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // admin
-Route::get('/admin', 'adminlabController@index')->name('admin.index')->middleware('auth');
-Route::post('adminsetuju/{id}', 'adminlabController@setuju')->name('admin.setuju')->middleware('auth');
+Route::get('/admin', 'adminlabController@index')->name('adminlab.index')->middleware('auth');
+Route::post('adminsetuju/{id}', 'adminlabController@setuju')->name('adminlab.setuju')->middleware('auth');
 
 // kalab
 Route::get('/kalab', 'kalabController@index')->name('kalab.index')->middleware('auth');

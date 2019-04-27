@@ -11,4 +11,8 @@ class Computer extends Model
         'status',
         'no_pc'
     ];
+
+    public function laboratory() {
+        return $this->belongsTo('App\Computer');
+    }    
 }

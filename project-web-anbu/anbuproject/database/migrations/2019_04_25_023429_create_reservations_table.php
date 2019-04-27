@@ -16,10 +16,11 @@ class CreateReservationsTable extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama');
-            $table->string('nrp')->unique();
+            $table->string('nrp', 14)->unique();
             $table->string('email')->unique();
-            $table->integer('id_lab');
-            $table->integer('no_pc');
+            $table->integer('id_lab')->unsigned();
+            $table->foreign('id_lab')->references('id')->on('laboratories');
+            $table->integer('no_pc')->unsigned();
             $table->string('no_hp');
             $table->text('proposal');
             $table->integer('status');

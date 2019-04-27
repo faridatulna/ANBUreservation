@@ -14,8 +14,9 @@ class CreateComputersTable extends Migration
     public function up()
     {
         Schema::create('computers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('id_lab');
+            $table->increments('id');
+            $table->integer('id_lab')->unsigned();
+            $table->foreign('id_lab')->references('id')->on('laboratories');
             $table->integer('status');
             $table->integer('no_pc');
             $table->timestamps();
