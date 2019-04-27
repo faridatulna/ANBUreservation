@@ -33,5 +33,5 @@ Route::post('adminsetuju/{id}', 'adminlabController@setuju')->name('adminlab.set
 Route::get('/kalab', 'kalabController@index')->name('kalab.index')->middleware('auth');
 Route::post('kalabsetuju/{id}', 'kalabController@setuju')->name('kalab.setuju')->middleware('auth');
 
-// apa ini?
-Route::get('/main', 'MainController@index');
+//resources
+Route::resource('computer','ComputerController');

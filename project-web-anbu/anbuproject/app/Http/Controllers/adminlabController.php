@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Reservation;
 use App\Computer;
+use App\Laboratory;
 
 class adminlabController extends Controller
 {
@@ -21,8 +22,10 @@ class adminlabController extends Controller
                                     ->*/where('status',0)
                                     ->get();
         // die ($reservations);
-        // $computers = Computer::all();
-        return view('adminlab.index', compact('reservations'));
+        $computer = Computer::all();
+        // $pc = Computer::pluck('no_pc','id');
+        $lab = Laboratory::pluck('nama_lab','id');
+        return view('adminlab.index', compact('reservations','lab','computer'));
     }
 
     public function setuju(Request $request, $id){

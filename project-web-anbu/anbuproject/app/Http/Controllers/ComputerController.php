@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Computer;
 
 class ComputerController extends Controller
 {
@@ -35,6 +36,8 @@ class ComputerController extends Controller
     public function store(Request $request)
     {
         //
+        Computer::create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -69,6 +72,9 @@ class ComputerController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $computer = Computer::findorfail($id);
+        $computer->update($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -80,5 +86,8 @@ class ComputerController extends Controller
     public function destroy($id)
     {
         //
+        $computer = Computer::findOrFail($id);       
+        $computer->delete();
+        return redirect()->back();
     }
 }
