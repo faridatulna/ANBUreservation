@@ -174,24 +174,24 @@
                 </div>
                 <br> @if(count($computer))
                 <div class="table-wrapper">
-                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <table id="example" class="table table-striped table-fixed" style="width:100%">
                         <thead>
                             <tr>
-                                <th>ID PC</th>
-                                <th>Lab</th>
-                                <th>Status</th>
+                                <th class="col-xs-2">ID PC</th>
+                                <th class="col-xs-2">Lab</th>
+                                <th class="col-xs-2">Status</th>
                                 <th colspan="2">CRUD</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($computer as $m)
                             <tr>
-                                <td>{{$m->no_pc}}</td>
-                                <td>{{$m->id_lab}}</td>
-                                <td>{{$m->status}}</td>
-                                <td><a type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPC{{$m->id}}"><i class="fas fa-edit fa-fw"></i>Edit</a></td>
-                                <td>
-                                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#delPC{{$m->id}}"><i class="fas fa-trash fa-fw"></i>Hapus</a></td>
+                                <td class="col-xs-2">{{$m->no_pc}}</td>
+                                <td class="col-xs-2">{{$m->id_lab}}</td>
+                                <td class="col-xs-2">{{$m->status}}</td>
+                                <td><a type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPC{{$m->id}}"><i class="fas fa-edit fa-fw"></i>Edit</a>
+                                
+                                <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#delPC{{$m->id}}"><i class="fas fa-trash fa-fw"></i>Hapus</a></td>
                                 </td>
                             </tr>
                             @endforeach
