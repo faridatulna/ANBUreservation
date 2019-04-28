@@ -11,6 +11,8 @@
 |
 */
 use App\Reservation;
+use App\Laboratory;
+use App\Computer;
 
 // Reservation
 Route::resource('reservation','ReservationController')->only([
@@ -19,7 +21,9 @@ Route::resource('reservation','ReservationController')->only([
 
 Route::get('/', function () {
     $reservations = Reservation::all();
-    return view('welcome', compact('reservations'));
+    $computer = Computer::pluck('no_pc','id_lab');
+    $lab = Laboratory::pluck('nama_lab','id');
+    return view('welcome', compact('reservations','lab','computer'));
 })->name('welcome');
 
 Auth::routes();

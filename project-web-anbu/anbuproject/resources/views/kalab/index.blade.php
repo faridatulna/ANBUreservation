@@ -32,7 +32,11 @@
                     <br>
                     <br>
                     <br>
-                    <li><a href="#" class="button">LOGOUT</a></li>
+                    <li>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="button">LOGOUT</a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
+                    </li>
 
                 </ul>
             </nav>
@@ -60,7 +64,7 @@
                         <div>
                             <ul class="actions">
                                 <li>
-                                    <input type="submit" value="Cek" class="primary" />
+                                    <input type="submit" value="Cari" class="primary" />
                                 </li>
                             </ul>
                         </div>
@@ -87,53 +91,44 @@
                                 <td>{{$reservation->nrp}}</td>
                                 <td>{{$reservation->nama}}</td>
                                 <td>{{$reservation->tgl_pinjam}}</td>
-                                <td class="clickable" data-toggle="collapse" id="row1" data-target=".row1">
+                                <td class="clickable" data-toggle="collapse" id="row{{ $reservation->id}}" data-target=".row{{ $reservation->id}}">
                                     <button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>LIHAT</button>
                                 </td>
                             </tr>
-                            <table class="table-responsive-md collapse row1" style="justify-content: center;">
-                                <!--buat nyambungin ke db ntar pake kode reservasi-->
-                                <thead>
-                                    <tr class="bg-dark">
-                                        <th>Nama</th>
-                                        <th>NRP</th>
-                                        <th>Email</th>
-                                        <th>No.Telp</th>
-                                        <th colspan="2">Berkas</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="bg-info">
-                                        <td>{{$reservation->nama}}</td>
-                                        <td>{{$reservation->nrp}}</td>
-                                        <td>{{$reservation->email}}</td>
-                                        <td>{{$reservation->no_hp}}</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>Lihat</button>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-download fa-fw"></i>Unduh</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <form method="POST" action="{{ route('kalab.setuju', $reservation->id) }}">
-                                        @csrf
-                                        <tr>
-                                            <td colspan="4"></td>
-                                            <td>
-                                                <button class="btn btn-success btn-sm" name="status" value="3">Setujui</button>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-danger btn-sm" name="status" value="5">Batalkan</button>
-                                            </td>
-                                        </tr>
-                                    </form>
-                                </tfoot>
-                            </table>
+                            <tr class="row{{ $reservation->id}} bg-dark">
+                                <th>Nama</th>
+                                <th>NRP</th>
+                                <th>Email</th>
+                                <th>No.Telp</th>
+                                <th colspan="2">Berkas</th>
+
+                            </tr>
+                            <tr class="row{{ $reservation->id}} bg-white" style="color: black">
+                                <td>{{$reservation->nama}}</td>
+                                <td>{{$reservation->nrp}}</td>
+                                <td>{{$reservation->email}}</td>
+                                <td>{{$reservation->no_hp}}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>Lihat</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm"><i class="fas fa-download fa-fw"></i>Unduh</button>
+                                </td>
+                            </tr>
+                            <form method="POST" action="{{ route('kalab.setuju', $reservation->id) }}">
+                                @csrf
+                                <tr class="row{{ $reservation->id}}">
+                                    <td colspan="4"></td>
+                                    <td>
+                                        <button class="btn btn-success btn-sm" name="status" value="3">Setujui</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" name="status" value="5">Batalkan</button>
+                                    </td>
+                                </tr>
+                            </form>
                             @endforeach
-
                         </tbody>
 
                     </table>

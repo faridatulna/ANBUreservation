@@ -22,10 +22,9 @@
         <div class="inner">
             <nav>
                 <ul>
-                    <li><a href="#intro">CEK RESERVASI PC</a></li>
-                    <li><a href="#one">DAFTAR</a></li>
-                    <!-- <li><a href="#two">What we do</a></li>
-                        <li><a href="#three">Get in touch</a></li> -->
+                    <li><a href="#intro">Home</a></li>
+                    <li><a href="#one">CEK RESERVASI PC</a></li>
+                    <li><a href="#two">DAFTAR</a></li>
                 </ul>
             </nav>
         </div>
@@ -35,6 +34,18 @@
     <div id="wrapper">
         <!-- Intro -->
         <section id="intro" class="wrapper style1 fullscreen fade-up">
+            <div class="inner">
+                <h2>WELCOME</h2>
+                <p> Sudahkah kamu melakukan reservasi PC ? </p>
+                    <ul class="actions">
+                        <li><a href="#two" class="button">Belum</a></li>
+                        <li><a href="#one" class="button">Sudah</a></li>
+                    </ul>
+            </div>
+        </section>
+
+        <!-- One -->
+        <section id="one" class="wrapper style2 fullscreen fade-up">
             <div class="inner">
                 <h2> CEK RESERVASI PC</h2>
                 <br>
@@ -120,10 +131,11 @@
                     </table>
                 </div>
             </div>
+            
         </section>
 
-        <!-- One -->
-        <section id="one" class="wrapper style3 fade-up">
+        <!-- Two -->
+        <section id="two" class="wrapper style3 fade-up">
             <div class="inner">
                 <h2>DAFTAR</h2>
                 <br>
@@ -148,22 +160,10 @@
                             <input type="email" name="email" id="email" value="" placeholder="Email" required />
                         </div>
                         <div class="col-6">
-                            <select name="id_lab" id="labs">
-                                <option value="">- Nama LAB -</option>
-                                <option value="1">RPL</option>
-                                <option value="1">KCV</option>
-                                <option value="1">NCC</option>
-                                <option value="1">LP</option>
-                            </select>
+                            {!! Form::label('id_lab', 'LAB') !!} {!! Form::select('id_lab', $lab ,null , array('class' => 'form-control')) !!}
                         </div>
                         <div class="col-6">
-                            <select name="no_pc" id="PCs">
-                                <option value="">- Kode PC -</option>
-                                <option value="1">1</option>
-                                <option value="1">2</option>
-                                <option value="1">3</option>
-                                <option value="1">4</option>
-                            </select>
+                            {!! Form::label('no_pc', 'NO PC') !!} {!! Form::select('no_pc', $computer ,null , array('class' => 'form-control')) !!}
                         </div>
 
                         <div class="col-7">

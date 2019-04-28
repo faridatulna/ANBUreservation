@@ -19,6 +19,11 @@ class User extends Authenticatable
         'name', 'role_id','id_lab', 'email', 'password'
     ];
 
+
+    public function adminlab() {
+        return $this->hasOne('App\Laboratory','id','id_lab');
+    }
+    
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -36,5 +41,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
 }

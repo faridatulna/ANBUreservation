@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Reservation;
 use App\Computer;
 use App\Laboratory;
+use App\User;
 
 class adminlabController extends Controller
 {

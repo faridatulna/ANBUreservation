@@ -37,7 +37,11 @@
                     <br>
                     <br>
                     <br>
-                    <li><a href="#" class="button">LOGOUT</a></li>
+                    <li>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="button">LOGOUT</a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
+                    </li>
 
                 </ul>
             </nav>
@@ -54,22 +58,23 @@
             <div class="inner">
                 <h2 style="justify-content: space-between;"> DAFTAR RESERVASI PC</h2>
                 <br>
-                <!-- <form method="post" action="#">
-                                    <div class="row gtr-uniform" style="justify-content: center;">
-                                        <div class="col-6 col-12-xsmall">
-                                            <input type="text" name="nrp" id="nrp" value="" placeholder="Masukkan NRP" required />
-                                        </div>
+                <form method="post" action="#">
+                    <div class="row gtr-uniform" style="justify-content: center;">
+                        <div class="col-6 col-12-xsmall">
+                            <input type="text" name="nrp" id="nrp" value="" placeholder="Masukkan NRP" required />
+                        </div>
 
-                                        <div>
-                                            <ul class="actions">
-                                                <li><input type="submit" value="Cek" class="primary" /></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </form> -->
+                        <div>
+                            <ul class="actions">
+                                <li><input type="submit" value="Cari" class="primary" /></li>
+                             </ul>
+                        </div>
+                    </div>
+                </form>
 
-                <div class="container">
-                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <div class="table-wrapper">
+
+                    <table>
                         <thead>
                             <tr>
                                 <th>ID Reservasi</th>
@@ -80,6 +85,7 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
+
                         <tbody style="color: white;">
                             @foreach($reservations as $reservation)
                             <tr>
@@ -88,55 +94,47 @@
                                 <td>{{$reservation->nrp}}</td>
                                 <td>{{$reservation->nama}}</td>
                                 <td>{{$reservation->tgl_pinjam}}</td>
-                                <td class="clickable" data-toggle="collapse" id="row1" data-target=".row1">
+                                <td class="clickable" data-toggle="collapse" id="row{{$reservation->id}}" data-target=".row{{$reservation->id}}">
                                     <button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>LIHAT</button>
                                 </td>
                             </tr>
-                            <table class="table-responsive-md collapse row1" style="justify-content: center;">
-                                <!--buat nyambungin ke db ntar pake kode reservasi-->
-                                <thead>
-                                    <tr class="bg-dark">
-                                        <th>Nama</th>
-                                        <th>NRP</th>
-                                        <th>Email</th>
-                                        <th>No.Telp</th>
-                                        <th colspan="2">Berkas</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="bg-white" style="color: black">
-                                        <td>{{$reservation->nama}}</td>
-                                        <td>{{$reservation->nrp}}</td>
-                                        <td>{{$reservation->email}}</td>
-                                        <td>{{$reservation->no_hp}}</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>Lihat</button>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-download fa-fw"></i>Unduh</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <form method="POST" action="{{ route('admin.setuju', $reservation->id) }}">
-                                        @csrf
-                                        <tr>
-                                            <td colspan="4"></td>
-                                            <td>
-                                                <button class="btn btn-success btn-sm" name="status" value="2">Setujui</button>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-danger btn-sm" name="status" value="5">Batalkan</button>
-                                            </td>
-                                        </tr>
-                                    </form>
-                                </tfoot>
+                            <tr class="collapse row{{ $reservation->id}} bg-dark">
+                                <th>Nama</th>
+                                <th>NRP</th>
+                                <th>Email</th>
+                                <th>No.Telp</th>
+                                <th colspan="2">Berkas</th>
 
-                            </table>
+                            </tr>
+                            <tr class="bg-white collapse row{{ $reservation->id}}" style="color: black">
+                                <td>{{$reservation->nama}}</td>
+                                <td>{{$reservation->nrp}}</td>
+                                <td>{{$reservation->email}}</td>
+                                <td>{{$reservation->no_hp}}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>Lihat</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm"><i class="fas fa-download fa-fw"></i>Unduh</button>
+                                </td>
+                            </tr>
+                            <form method="POST" action="{{ route('adminlab.setuju', $reservation->id) }}">
+                                @csrf
+                                <tr class="collapse row{{ $reservation->id}}">
+                                    <td colspan="4"></td>
+                                    <td>
+                                        <button class="btn btn-success btn-sm" name="status" value="2">Setujui</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" name="status" value="5">Batalkan</button>
+                                    </td>
+                                </tr>
+                            </form>
+
                             @endforeach
-                        </tbody>
 
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -169,7 +167,7 @@
         </section>
 
         <!-- One -->
-        <section id="one" class="wrapper style3 fade-up">
+        <section id="one" class="wrapper style3 fullscreen fade-up">
             <div class="inner">
                 <h2>DAFTAR PC</h2>
                 <div style="align-items: right"><a class="btn btn-primary" data-toggle="modal" data-target="#addPC"><i class="fas fa-edit fa-fw"></i>Tambah</a></td>
@@ -193,7 +191,7 @@
                                 <td>{{$m->status}}</td>
                                 <td><a type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPC{{$m->id}}"><i class="fas fa-edit fa-fw"></i>Edit</a></td>
                                 <td>
-                                <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#delPC{{$m->id}}"><i class="fas fa-trash fa-fw"></i>Hapus</a></td>
+                                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#delPC{{$m->id}}"><i class="fas fa-trash fa-fw"></i>Hapus</a></td>
                                 </td>
                             </tr>
                             @endforeach
@@ -258,7 +256,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            {!! Form::button('<i class="fa fa--square"></i>'. 'Close', array('type' => 'close', 'class' => 'btn btn-secondary btn-sm'))!!} {!! Form::button('<i class="fa fa-check-square"></i>'. ' Add', array('type' => 'submit', 'class' => 'btn btn-primary btn-sm'))!!} {!! Form::close()!!}
+                            {!! Form::button('<i class="fa fa--square"></i>'. 'close', array('type' => 'close', 'class' => 'btn btn-secondary btn-sm','data-dismiss' => 'modal' ))!!} {!! Form::button('<i class="fa fa-check-square"></i>'. ' Add', array('type' => 'submit', 'class' => 'btn btn-primary btn-sm'))!!} {!! Form::close()!!}
                         </div>
                     </div>
                 </div>
@@ -270,11 +268,11 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content" style="background-color: #b74e91;">
                         <div class="modal-header">
-                            <h2 class="modal-title" id="editPC">Edit PC</h2>
+                            <h2 class="modal-title" id="editPC{{ $m->id}}">Edit PC</h2>
                             <a type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </a>
-                        </div> 
+                        </div>
                         <div class="modal-body">
                             {!!Form::model($m,['method'=>'PATCH', 'action'=>['ComputerController@update',$m->id]]) !!}
                             <div class="row gtr-uniform" style="justify-content: center;">
@@ -292,7 +290,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            {!! Form::button('<i class="fa fa--square"></i>'. 'Close', array('type' => 'close', 'class' => 'btn btn-secondary btn-sm'))!!} {!! Form::button('<i class="fa fa-check-square"></i>'. 'Update', array('type' => 'submit', 'class' => 'btn btn-primary btn-sm'))!!} {!! Form::close()!!}
+                            {!! Form::button('<i class="fa fa--square"></i>'. 'Close', array('type' => 'close', 'class' => 'btn btn-secondary btn-sm', 'data-dismiss' => 'modal' ))!!} {!! Form::button('<i class="fa fa-check-square"></i>'. 'Update', array('type' => 'submit', 'class' => 'btn btn-primary btn-sm'))!!} {!! Form::close()!!}
                         </div>
                     </div>
                 </div>
@@ -302,21 +300,22 @@
             <!-- Modal Delete -->
             @foreach($computer as $m)
             <div class="modal fade" id="delPC{{ $m->id}}" tabindex="-1" role="dialog" aria-labelledby="delPC" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog " role="document">
                     <div class="modal-content" style="background-color: #b74e91;">
                         <div class="modal-header">
                             <h3 class="modal-title" id="editPC">DELETE PC</h3>
                             <a type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </a>
-                        </div> 
+                        </div>
                         <div class="modal-body">
+                            {!! Form::open(array('route' => array('computer.destroy', $m->id), 'method' => 'delete')) !!}
+
                             Anda Yakin Ingin Menghapus data ??
                         </div>
-
                         <div class="modal-footer">
-                            {!! Form::open(array('route' => array('computer.destroy', $m->id), 'method' => 'delete')) !!}
-                            <button type="submit" class="btn btn-danger btn btn-sm"><i class="fas fa-trash"></i>Delete</button>
+                            {!! Form::button('<i class="fa fa--square"></i>'. 'Close', array('type' => 'close', 'class' => 'btn btn-secondary btn-sm', 'data-dismiss' => 'modal' ))!!}
+                            {!! Form::button('<i class="fas fa-trash"></i>'. 'Delete', array('type' => 'submit', 'class' => 'btn btn-danger btn-sm'))!!}
                             {!! Form::close() !!}
                         </div>
                     </div>
@@ -324,19 +323,9 @@
             </div>
             @endforeach
 
-
         </section>
 
     </div>
-
-    <!-- Footer -->
-    <!-- <footer id="footer" class="wrapper style1-alt">
-                <div class="inner">
-                    <ul class="menu">
-                        <p class="copyright">&copy; ANBUSTEAM.</p>
-                    </ul>
-                </div>
-            </footer> -->
 
     <!-- Scripts -->
 
