@@ -96,7 +96,7 @@
                                 </td>
                             </tr>
 
-                            <tr class="row{{ $reservation->id}} bg-dark">
+                            <tr class="collapse row{{ $reservation->id}} bg-dark">
                                 <th>Nama</th>
                                 <th>NRP</th>
                                 <th>Email</th>
@@ -104,7 +104,7 @@
                                 <th colspan="2">Berkas</th>
 
                             </tr>
-                            <tr class="row{{ $reservation->id}} bg-white" style="color: black">
+                            <tr class="collapse row{{ $reservation->id}} bg-white" style="color: black">
                                 <td>{{$reservation->nama}}</td>
                                 <td>{{$reservation->nrp}}</td>
                                 <td>{{$reservation->email}}</td>
@@ -118,7 +118,7 @@
                             </tr>
                             <form method="POST" action="{{ route('kalab.setuju', $reservation->id) }}">
                                 @csrf
-                                <tr class="row{{ $reservation->id}}">
+                                <tr class="collapse row{{ $reservation->id}}">
                                     <td colspan="4"></td>
                                     <td>
                                         <button class="btn btn-success btn-sm" name="status" value="3">Setujui</button>
