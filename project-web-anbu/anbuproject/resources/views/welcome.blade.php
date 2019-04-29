@@ -38,8 +38,8 @@
                 <h2>WELCOME</h2>
                 <p> Sudahkah kamu melakukan reservasi PC ? </p>
                     <ul class="actions">
-                        <li><a href="#two" class="button">Belum</a></li>
-                        <li><a href="#one" class="button">Sudah</a></li>
+                        <li><a href="#two" class="button large">Belum</a></li>
+                        <li><a href="#one" class="button large">Sudah</a></li>
                     </ul>
             </div>
         </section>
