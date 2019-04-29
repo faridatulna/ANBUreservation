@@ -28,7 +28,7 @@
                         <button class="button large primary disabled"><i class="fas fa-user fa-fw"></i> DOSEN LAB</button>
                     </li>
                     <br>
-                    <li><a href="#intro">DAFTAR PENGAJUAN RESERVASI PC</a></li>
+                    <li><a href="{{ url()->current() }}#intro">DAFTAR PENGAJUAN RESERVASI PC</a></li>
                     <br>
                     <br>
                     <br>
@@ -55,10 +55,10 @@
                 <br>
                 <br>
 
-                <form method="post" action="#">
+                <form action="{{ url()->current() }}">
                     <div class="row gtr-uniform" style="justify-content: center;">
                         <div class="col-6 col-12-xsmall">
-                            <input type="text" name="nrp" id="nrp" value="" placeholder="Masukkan NRP" required />
+                            <input type="text" name="keyword" id="keyword" value="" placeholder="Masukkan NRP" required />
                         </div>
 
                         <div>
@@ -133,6 +133,12 @@
 
                     </table>
                 </div>
+				@if ($reservations->hasPages())
+					Halaman <strong>{{ $reservations->currentPage() }}</strong> dari <strong>{{ $reservations->lastPage() }}</strong>.<br/>
+					Menampilkan <strong>{{ ((($reservations->currentPage() -1) * $reservations->perPage()) + 1) }}</strong> sampai <strong>{{ ((($reservations->currentPage() -1) * $reservations->perPage()) + $reservations->count()) }}</strong> dari <strong>{{ $reservations->total() }}</strong> data yang ada.<br/>
+				@endif
+				</br>
+				{{ $reservations->links() }}
             </div>
 
         </section>

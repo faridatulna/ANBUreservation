@@ -32,7 +32,7 @@
                         <button class="button large primary disabled"><i class="fas fa-user fa-fw"></i> ADMIN LAB</button>
                     </li>
                     <br>
-                    <li><a href="#intro">DAFTAR RESERVASI PC</a></li>
+                    <li><a href="{{ url()->current() }}#intro">DAFTAR RESERVASI PC</a></li>
                     <li><a href="#one"> DAFTAR PC </a></li>
                     <br>
                     <br>
@@ -58,10 +58,10 @@
             <div class="inner">
                 <h2 style="justify-content: space-between;"> DAFTAR RESERVASI PC</h2>
                 <br>
-                <form method="post" action="#">
+                <form action="{{ url()->current() }}">
                     <div class="row gtr-uniform" style="justify-content: center;">
                         <div class="col-6 col-12-xsmall">
-                            <input type="text" name="nrp" id="nrp" value="" placeholder="Masukkan NRP" required />
+                            <input type="text" name="keyword" id="keyword" value="" placeholder="Masukkan NRP" required />
                         </div>
 
                         <div>
@@ -137,6 +137,12 @@
                         </tbody>
                     </table>
                 </div>
+					@if ($reservations->hasPages())
+						Halaman <strong>{{ $reservations->currentPage() }}</strong> dari <strong>{{ $reservations->lastPage() }}</strong>.<br/>
+						Menampilkan <strong>{{ ((($reservations->currentPage() -1) * $reservations->perPage()) + 1) }}</strong> sampai <strong>{{ ((($reservations->currentPage() -1) * $reservations->perPage()) + $reservations->count()) }}</strong> dari <strong>{{ $reservations->total() }}</strong> data yang ada.<br/>
+					@endif
+				</br>
+				{{ $reservations->links() }}
             </div>
 
             <script type="text/javascript">
@@ -203,6 +209,12 @@
                     <i class="fa fa-exclamation-triangle"></i> Data belum ada
                 </div>
                 @endif
+			@if ($computer->hasPages())
+					Halaman <strong>{{ $computer->currentPage() }}</strong> dari <strong>{{ $computer->lastPage() }}</strong>.<br/>
+					Menampilkan <strong>{{ ((($computer->currentPage() -1) * $computer->perPage()) + 1) }}</strong> sampai <strong>{{ ((($computer->currentPage() -1) * $computer->perPage()) + $computer->count()) }}</strong> dari <strong>{{ $computer->total() }}</strong> data yang ada.<br/>
+				@endif
+				</br>
+				{{ $computer->fragment('one')->links() }}
             </div>
 
             <script type="text/javascript">

@@ -23,7 +23,7 @@
             <nav>
                 <ul>
                     <li><a href="#intro">Home</a></li>
-                    <li><a href="#one">CEK RESERVASI PC</a></li>
+                    <li><a href="{{ url()->current() }}#one">CEK RESERVASI PC</a></li>
                     <li><a href="#two">DAFTAR</a></li>
                 </ul>
             </nav>
@@ -49,10 +49,10 @@
             <div class="inner">
                 <h2> CEK RESERVASI PC</h2>
                 <br>
-                <form method="post" action="#">
+                <form action="{{ url()->current() }}#one">
                     <div class="row gtr-uniform" style="justify-content: center;">
                         <div class="col-6 col-12-xsmall">
-                            <input type="text" name="nrp" id="nrp" value="" placeholder="Masukkan NRP" required />
+                            <input type="text" name="keyword" id="keyword" value="" placeholder="Masukkan NRP" required />
                         </div>
 
                         <div>
@@ -80,7 +80,7 @@
                             @foreach($reservations as $reservation) @if($reservation->status == 1)
                             <tr class="bg-info">
                                 <td>{{$reservation->nrp}}</td>
-                                <td>{{$reservation->id_lab}}</td>
+                                <td>{{$reservation->lab->nama_lab}}</td>
                                 <td>{{$reservation->no_pc}}</td>
                                 <td>{{$reservation->tgl_pinjam}}</td>
                                 <td>Verifikasi Admin</td>
@@ -88,7 +88,7 @@
                             @elseif($reservation->status == 2)
                             <tr class="bg-primary">
                                 <td>{{$reservation->nrp}}</td>
-                                <td>{{$reservation->id_lab}}</td>
+                                <td>{{$reservation->lab->nama_lab}}</td>
                                 <td>{{$reservation->no_pc}}</td>
                                 <td>{{$reservation->tgl_pinjam}}</td>
                                 <td>Verifikasi Kalab</td>
@@ -96,7 +96,7 @@
                             @elseif($reservation->status == 3)
                             <tr class="bg-success">
                                 <td>{{$reservation->nrp}}</td>
-                                <td>{{$reservation->id_lab}}</td>
+                                <td>{{$reservation->lab->nama_lab}}</td>
                                 <td>{{$reservation->no_pc}}</td>
                                 <td>{{$reservation->tgl_pinjam}}</td>
                                 <td>Disetujui</td>
@@ -104,7 +104,7 @@
                             @elseif($reservation->status == 4)
                             <tr class="bg-danger">
                                 <td>{{$reservation->nrp}}</td>
-                                <td>{{$reservation->id_lab}}</td>
+                                <td>{{$reservation->lab->nama_lab}}</td>
                                 <td>{{$reservation->no_pc}}</td>
                                 <td>{{$reservation->tgl_pinjam}}</td>
                                 <td>Dibatalkan</td>
@@ -112,7 +112,7 @@
                             @elseif($reservation->status == 5)
                             <tr class="bg-danger">
                                 <td>{{$reservation->nrp}}</td>
-                                <td>{{$reservation->id_lab}}</td>
+                                <td>{{$reservation->lab->nama_lab}}</td>
                                 <td>{{$reservation->no_pc}}</td>
                                 <td>{{$reservation->tgl_pinjam}}</td>
                                 <td>Ditolak</td>
@@ -120,7 +120,7 @@
                             @elseif($reservation->status == 0)
                             <tr class="bg-warning">
                                 <td>{{$reservation->nrp}}</td>
-                                <td>{{$reservation->id_lab}}</td>
+                                <td>{{$reservation->lab->nama_lab}}</td>
                                 <td>{{$reservation->no_pc}}</td>
                                 <td>{{$reservation->tgl_pinjam}}</td>
                                 <td>Diajukan</td>
@@ -130,6 +130,12 @@
 
                     </table>
                 </div>
+				@if ($reservations->hasPages())
+					Halaman <strong>{{ $reservations->currentPage() }}</strong> dari <strong>{{ $reservations->lastPage() }}</strong>.<br/>
+					Menampilkan <strong>{{ ((($reservations->currentPage() -1) * $reservations->perPage()) + 1) }}</strong> sampai <strong>{{ ((($reservations->currentPage() -1) * $reservations->perPage()) + $reservations->count()) }}</strong> dari <strong>{{ $reservations->total() }}</strong> data yang ada.<br/>
+				@endif
+				</br>
+				{{ $reservations->fragment('one')->links() }}
             </div>
             
         </section>

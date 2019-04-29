@@ -13,12 +13,23 @@ class kalabController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        $reservations = Reservation::/*where('id_lab',Auth::user()->id_lab)
-                                    ->*/where('status', 2)
-                                    ->get();
+		if(!$request->keyword){
+			$reservations = Reservation::/*where('id_lab',Auth::user()->id_lab)
+										->*/where('status', 2)
+										->/*get()*/paginate(5);
+		} else {				
+			$reservations = Reservation::when($request->keyword, function ($query) use ($request) {
+				$query->where('nama', 'like', "%{$request->keyword}%")
+					->orWhere('nrp', 'like', "%{$request->keyword}%")
+					/*->orWhere('nopc', 'like', "%{$request->keyword}%")
+					->orWhere('id_lab', 'like', "%{$request->keyword}%")
+					->orWhere('tgl_pinjam', 'like', "%{$request->keyword}%")*/;
+			})->paginate();
+			
+			$reservations->appends($request->only('keyword'));									
+		}
         // die ($reservations);
         // $computers = Computer::all();
         return view('kalab.index', compact('reservations'));

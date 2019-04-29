@@ -17,4 +17,9 @@ class Reservation extends Model
         'status',
         'tgl_pinjam'
     ];
+	
+    public function lab() {
+        return $this->belongsTo('App\Laboratory','id_lab','id');
+    }   
+
 }

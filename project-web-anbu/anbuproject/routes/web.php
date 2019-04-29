@@ -13,14 +13,29 @@
 use App\Reservation;
 use App\Laboratory;
 use App\Computer;
+use Illuminate\Http\Request;
 
 // Reservation
 Route::resource('reservation','ReservationController')->only([
     'store'
 ]);
 
-Route::get('/', function () {
-    $reservations = Reservation::all();
+Route::get('/', function (Request $request) {
+
+	if(!$request->keyword) {
+		$reservations = Reservation::all();
+		$reservations = Reservation::paginate(5);
+	} else {
+			$reservations = Reservation::when($request->keyword, function ($query) use ($request) {
+				$query->where('nrp', 'like', "%{$request->keyword}%")
+					/*->orWhere('nama', 'like', "%{$request->keyword}%")
+					->orWhere('nopc', 'like', "%{$request->keyword}%")
+					->orWhere('id_lab', 'like', "%{$request->keyword}%")
+					->orWhere('tgl_pinjam', 'like', "%{$request->keyword}%")*/;
+			})->paginate();
+			$reservations->appends($request->only('keyword'));
+	}
+
     $computer = Computer::pluck('no_pc','id_lab');
     $lab = Laboratory::pluck('nama_lab','id');
     return view('welcome', compact('reservations','lab','computer'));
