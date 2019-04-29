@@ -37,6 +37,10 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'proposal' => 'required|file|mimes:pdf'
+        ]);
+
         $reservation = new Reservation;
         $reservation->nama = $request->nama;
         $reservation->nrp = $request->nrp;

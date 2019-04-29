@@ -28,7 +28,7 @@
                         <button class="button large primary disabled"><i class="fas fa-user fa-fw"></i> DOSEN LAB</button>
                     </li>
                     <br>
-                    <li><a href="{{ url()->current() }}#intro">DAFTAR PENGAJUAN RESERVASI PC</a></li>
+                    <li><a href="#intro">DAFTAR PENGAJUAN RESERVASI PC</a></li>
                     <br>
                     <br>
                     <br>
@@ -58,7 +58,7 @@
                 <form action="{{ url()->current() }}">
                     <div class="row gtr-uniform" style="justify-content: center;">
                         <div class="col-6 col-12-xsmall">
-                            <input type="text" name="keyword" id="keyword" value="" placeholder="Masukkan NRP" required />
+                            <input type="text" name="keyword" id="keyword" value="" placeholder="Masukkan NRP" />
                         </div>
 
                         <div>
@@ -113,12 +113,14 @@
                                     <button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>Lihat</button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm"><i class="fas fa-download fa-fw"></i>Unduh</button>
+                                    <form action="{{ route('getDownload', $reservation->proposal) }}">
+                                        <button class="btn btn-primary btn-sm"><i class="fas fa-download fa-fw"></i>Unduh</button>
+                                    </form>
                                 </td>
                             </tr>
                             <form method="POST" action="{{ route('kalab.setuju', $reservation->id) }}">
                                 @csrf
-                                <tr class="collapse row{{ $reservation->id}}">
+                                <tr class="bg-white collapse row{{ $reservation->id}}">
                                     <td colspan="4"></td>
                                     <td>
                                         <button class="btn btn-success btn-sm" name="status" value="3">Setujui</button>

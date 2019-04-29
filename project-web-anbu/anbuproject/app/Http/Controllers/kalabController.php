@@ -26,9 +26,9 @@ class kalabController extends Controller
 					/*->orWhere('nopc', 'like', "%{$request->keyword}%")
 					->orWhere('id_lab', 'like', "%{$request->keyword}%")
 					->orWhere('tgl_pinjam', 'like', "%{$request->keyword}%")*/;
-			})->paginate();
-			
-			$reservations->appends($request->only('keyword'));									
+			})->paginate($request->limit ? $request->limit : 5);
+            
+            $reservations->appends($request->only('keyword', 'limit'));		
 		}
         // die ($reservations);
         // $computers = Computer::all();

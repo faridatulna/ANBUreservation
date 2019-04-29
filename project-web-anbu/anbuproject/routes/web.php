@@ -32,8 +32,9 @@ Route::get('/', function (Request $request) {
 					->orWhere('nopc', 'like', "%{$request->keyword}%")
 					->orWhere('id_lab', 'like', "%{$request->keyword}%")
 					->orWhere('tgl_pinjam', 'like', "%{$request->keyword}%")*/;
-			})->paginate();
-			$reservations->appends($request->only('keyword'));
+			})->paginate($request->limit ? $request->limit : 5);
+			
+			$reservations->appends($request->only('keyword', 'limit'));	
 	}
 
     $computer = Computer::pluck('no_pc','id_lab');
@@ -47,6 +48,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 // admin
 Route::get('/admin', 'adminlabController@index')->name('adminlab.index')->middleware('auth');
 Route::post('adminsetuju/{id}', 'adminlabController@setuju')->name('adminlab.setuju')->middleware('auth');
+
+// download files
+Route::get('/download/{id}', function ($filename) {
+    $file= public_path('files/').$filename;
+    return response()->download($file, $filename);
+})->middleware('auth')->name('getDownload');
 
 // kalab
 Route::get('/kalab', 'kalabController@index')->name('kalab.index')->middleware('auth');

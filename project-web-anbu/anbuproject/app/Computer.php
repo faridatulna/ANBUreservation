@@ -18,5 +18,9 @@ class Computer extends Model
 
     public function laboratory() {
         return $this->belongsTo('App\Computer');
-    }    
+    }
+
+    public function computer() {
+        return $this->belongsTo('App\Laboratory','id_lab','id');
+    }  
 }

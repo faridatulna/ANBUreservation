@@ -7,6 +7,7 @@ use App\Reservation;
 use App\Computer;
 use App\Laboratory;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class adminlabController extends Controller
 {
@@ -30,16 +31,17 @@ class adminlabController extends Controller
 					/*->orWhere('nopc', 'like', "%{$request->keyword}%")
 					->orWhere('id_lab', 'like', "%{$request->keyword}%")
 					->orWhere('tgl_pinjam', 'like', "%{$request->keyword}%")*/;
-			})->paginate();
+			})->paginate($request->limit ? $request->limit : 5);
 			
-			$reservations->appends($request->only('keyword'));									
+			$reservations->appends($request->only('keyword', 'limit'));									
 		}
         // die ($reservations);
-        $computer = Computer::all();
-		$computer = Computer::paginate(10);
+        // $computer = Computer::all();
+        $computer = Computer::where('id_lab',Auth::user()->id_lab)
+                            ->paginate(10);
         // $pc = Computer::pluck('no_pc','id');
         $lab = Laboratory::pluck('nama_lab','id');
-        return view('adminlab.index', compact('reservations','lab','computer','users'));
+        return view('adminlab.index', compact('reservations','lab','computer'));
     }
 
     public function setuju(Request $request, $id){

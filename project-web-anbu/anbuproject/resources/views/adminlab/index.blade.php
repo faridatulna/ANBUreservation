@@ -32,7 +32,7 @@
                         <button class="button large primary disabled"><i class="fas fa-user fa-fw"></i> ADMIN LAB</button>
                     </li>
                     <br>
-                    <li><a href="{{ url()->current() }}#intro">DAFTAR RESERVASI PC</a></li>
+                    <li><a href="#intro">DAFTAR RESERVASI PC</a></li>
                     <li><a href="#one"> DAFTAR PC </a></li>
                     <br>
                     <br>
@@ -61,7 +61,7 @@
                 <form action="{{ url()->current() }}">
                     <div class="row gtr-uniform" style="justify-content: center;">
                         <div class="col-6 col-12-xsmall">
-                            <input type="text" name="keyword" id="keyword" value="" placeholder="Masukkan NRP" required />
+                            <input type="text" name="keyword" id="keyword" value="" placeholder="Masukkan NRP" />
                         </div>
 
                         <div>
@@ -113,15 +113,19 @@
                                 <td>{{$reservation->email}}</td>
                                 <td>{{$reservation->no_hp}}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>Lihat</button>
+                                    <form action="" target="_blank">
+                                        <button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>Lihat</button>
+                                    </form>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm"><i class="fas fa-download fa-fw"></i>Unduh</button>
+                                    <form action="{{ route('getDownload', $reservation->proposal) }}">
+                                        <button class="btn btn-primary btn-sm"><i class="fas fa-download fa-fw"></i>Unduh</button>
+                                    </form>
                                 </td>
                             </tr>
                             <form method="POST" action="{{ route('adminlab.setuju', $reservation->id) }}">
                                 @csrf
-                                <tr class="collapse row{{ $reservation->id}}">
+                                <tr class="bg-white collapse row{{ $reservation->id}}">
                                     <td colspan="4"></td>
                                     <td>
                                         <button class="btn btn-success btn-sm" name="status" value="2">Setujui</button>
@@ -183,7 +187,7 @@
                     <table id="example" class="table table-striped table-fixed" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="col-xs-2">ID PC</th>
+                                <th class="col-xs-2">No PC</th>
                                 <th class="col-xs-2">Lab</th>
                                 <th class="col-xs-2">Status</th>
                                 <th colspan="2">CRUD</th>
@@ -193,8 +197,14 @@
                             @foreach($computer as $m)
                             <tr>
                                 <td class="col-xs-2">{{$m->no_pc}}</td>
-                                <td class="col-xs-2">{{$m->id_lab}}</td>
-                                <td class="col-xs-2">{{$m->status}}</td>
+                                <td class="col-xs-2">{{$m->computer->nama_lab}}</td>
+                            @if($m->status == 0)
+                                <td class="col-xs-2">Tersedia</td>
+                            @elseif($m->status == 1)
+                                <td class="col-xs-2">Pengajuan</td>
+                            @else
+                                <td class="col-xs-2">Dipinjam</td>
+                            @endif
                                 <td><a type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPC{{$m->id}}"><i class="fas fa-edit fa-fw"></i>Edit</a>
                                 
                                 <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#delPC{{$m->id}}"><i class="fas fa-trash fa-fw"></i>Hapus</a></td>
@@ -259,10 +269,19 @@
                                     {!! Form::label('no_pc', 'No PC') !!} {!! Form::number('no_pc' ,null , array('class' => 'form-control','placeholder'=>'')) !!}
                                 </div>
                                 <div class="col-11">
-                                    {!! Form::label('id_lab', 'LAB') !!} {!! Form::select('id_lab', $lab ,null , array('class' => 'form-control')) !!}
+                                    {!! Form::label('id_lab', 'LAB') !!}
+                                    <select name="id_lab" id="LABs">
+                                        <option value="{{$m->id_lab}}">{{$m->computer->nama_lab}}</option>
+                                    </select>
                                 </div>
                                 <div class="col-11">
-                                    {!! Form::label('status', 'Status') !!} {!! Form::text('status', null, array('class' => 'form-control','placeholder'=>'Dipinjam')) !!}
+                                    {!! Form::label('status', 'Status') !!}
+                                    <select name="status" id="PCs">
+                                        <option value="">- Status PC -</option>
+                                        <option value="0">Tersedia</option>
+                                        <option value="1">Pengajuan</option>
+                                        <option value="2">Dipinjam</option>
+                                    </select>                                   
                                 </div>
                             </div>
                         </div>
@@ -289,14 +308,21 @@
                             {!!Form::model($m,['method'=>'PATCH', 'action'=>['ComputerController@update',$m->id]]) !!}
                             <div class="row gtr-uniform" style="justify-content: center;">
                                 <div class="col-11">
-                                    {!! Form::label('no_pc', 'No PC') !!} {!! Form::number('no_pc' ,null , array('class' => 'form-control','placeholder'=>'')) !!}
+                                    {!! Form::label('no_pc', 'No PC') !!}
+                                    <input type="text" readonly class="form-control-plaintext" id="no_pc" value="{{$m->no_pc}}">
+                                </div>
+                                <div class="col-11">          
+                                    {!! Form::label('id_lab', 'LAB') !!}
+                                    <input type="text" readonly class="form-control-plaintext" id="nama_lab" value="{{$m->computer->nama_lab}}">
                                 </div>
                                 <div class="col-11">
-                                    {!! Form::label('id_lab', 'LAB') !!} {!! Form::select('id_lab', $lab ,null , array('class' => 'form-control')) !!}
-                                </div>
-                                <div class="col-11">
-                                    {!! Form::label('status', 'Status') !!} {!! Form::text('status', null, array('class' => 'form-control','placeholder'=>'Dipinjam')) !!}
-
+                                    {!! Form::label('status', 'Status') !!}
+                                    <select name="status" id="PCs">
+                                        <option value="">- Status PC -</option>
+                                        <option value="0">Tersedia</option>
+                                        <option value="1">Pengajuan</option>
+                                        <option value="2">Dipinjam</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -23,7 +23,7 @@
             <nav>
                 <ul>
                     <li><a href="#intro">Home</a></li>
-                    <li><a href="{{ url()->current() }}#one">CEK RESERVASI PC</a></li>
+                    <li><a href="#one">CEK RESERVASI PC</a></li>
                     <li><a href="#two">DAFTAR</a></li>
                 </ul>
             </nav>
@@ -52,7 +52,7 @@
                 <form action="{{ url()->current() }}#one">
                     <div class="row gtr-uniform" style="justify-content: center;">
                         <div class="col-6 col-12-xsmall">
-                            <input type="text" name="keyword" id="keyword" value="" placeholder="Masukkan NRP" required />
+                            <input type="text" name="keyword" id="keyword" value="" placeholder="Masukkan NRP" />
                         </div>
 
                         <div>
