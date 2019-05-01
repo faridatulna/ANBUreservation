@@ -61,3 +61,7 @@ Route::post('kalabsetuju/{id}', 'kalabController@setuju')->name('kalab.setuju')-
 
 //resources
 Route::resource('computer','ComputerController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
