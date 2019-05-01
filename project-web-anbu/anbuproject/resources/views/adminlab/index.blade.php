@@ -271,7 +271,9 @@
                                 <div class="col-11">
                                     {!! Form::label('id_lab', 'LAB') !!}
                                     <select name="id_lab" id="LABs">
+                                        @foreach($computer as $m)
                                         <option value="{{$m->id_lab}}">{{$m->computer->nama_lab}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-11">
