@@ -36,11 +36,15 @@ Route::get('/', function (Request $request) {
 			
 			$reservations->appends($request->only('keyword', 'limit'));	
 	}
-	$lab = Laboratory::pluck('nama_lab','id');
-	$computer = Computer::pluck('no_pc','id_lab');
-	return $computer;
-    return view('welcome', compact('reservations','lab','computer'));
+	// $lab = Laboratory::pluck('nama_lab','id');
+	// $computer = Computer::pluck('no_pc','id_lab');
+	$lab = Laboratory::all();
+	// return $lab;
+    return view('welcome', compact('reservations','lab'));
 })->name('welcome');
+
+Route::post( '/get/computer', 'ReservationController@computer' )->name( 'loadComputer' );
+// Route::get( '/get/computer/{id_lab}', 'ReservationController@computer' )->name( 'loadComputer' );
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

@@ -166,10 +166,18 @@
                             <input type="email" name="email" id="email" value="" placeholder="Email" required />
                         </div>
                         <div class="col-6">
-                            {!! Form::label('id_lab', 'LAB') !!} {!! Form::select('id_lab', $lab ,null , array('class' => 'form-control')) !!}
+                            {!! Form::label('id_lab', 'LAB') !!} 
+                            <select name="id_lab" id="id_lab" class="form-control">
+                                @foreach($lab as $l)
+                                <option value="{{$l->id_lab}}">{{$l->nama_lab}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-6">
-                            {!! Form::label('no_pc', 'NO PC') !!} {!! Form::select('no_pc', $computer ,null , array('class' => 'form-control')) !!}
+                            {!! Form::label('no_pc', 'NO PC') !!}
+                            <select class="form-control" name="no_pc" id="no_pc">
+                                <option value="">wkwk</option>
+                            </select>
                         </div>
 
                         <div class="col-7">
@@ -185,7 +193,7 @@
                                     <input type="submit" value="Submit" class="primary" />
                                 </li>
                                 <li>
-                                    <input type="reset" value="Reset" />
+                                    <input type="reset" value="Reset" /> 
                                 </li>
                             </ul>
                         </div>
@@ -220,6 +228,33 @@
     <script src="{{ asset('theme2/assets/js/breakpoints.min.js') }}" defer></script>
     <script src="{{ asset('theme2/assets/js/util.js') }}" defer></script>
     <script src="{{ asset('theme2/assets/js/main.js') }}" defer></script>
+    <script>
+        $('#id_lab').change(function(){
+            $("#no_pc option").remove();
+            let id = $(this).val();
+            // $('#no_pc').append($('<option value="">09283982</option>'));
+            $.ajax({
+                url : '{{ route( 'loadComputer' ) }}',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "id": id
+                    },
+                type: 'post',
+                dataType: 'json',
+                success: function( result )
+                {
+                    $.each(
+                        $('#no_pc').append('<option>1</option>')
+                    );
+                },
+                error: function()
+                {
+                    //handle errors
+                    alert('error...');
+                }
+            });
+        });
+    </script>
 
 </body>
 
