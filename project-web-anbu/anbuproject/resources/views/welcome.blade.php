@@ -168,8 +168,9 @@
                         <div class="col-6">
                             {!! Form::label('id_lab', 'LAB') !!} 
                             <select name="id_lab" id="id_lab" class="form-control">
+                                <option>Pilih Lab</option>
                                 @foreach($lab as $l)
-                                <option value="{{$l->id_lab}}">{{$l->nama_lab}}</option>
+                                <option value="{{$l->id}}">{{$l->nama_lab}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -231,7 +232,8 @@
     <script>
         $('#id_lab').change(function(){
             $("#no_pc option").remove();
-            let id = $(this).val();
+            let id = $(this).find(":selected").val();
+            // alert(id);
             // $('#no_pc').append($('<option value="">09283982</option>'));
             $.ajax({
                 url : '{{ route( 'loadComputer' ) }}',
@@ -243,9 +245,10 @@
                 dataType: 'json',
                 success: function( result )
                 {
-                    $.each(
-                        $('#no_pc').append('<option>1</option>')
-                    );
+                    // console.log(data);
+                    $.each( result, function(k, v) {
+                            $('#no_pc').append($('<option>', {value:k, text:v}));
+                    });
                 },
                 error: function()
                 {

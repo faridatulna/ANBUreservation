@@ -12,9 +12,7 @@ class ReservationController extends Controller
     function computer( Request $request )
     {
         // $this->validate( $request, [ 'id_lab' => 'required|exists:id_lab' ] );
-        // return ($request->id_lab);
-        $computers = Computer::where('id_lab', $request->id_lab )->get();
-        // return($computers);
+        $computers = Computer::where('id_lab', $request->get('id') )->get();
         //you can handle output in different ways, I just use a custom filled array. you may pluck data and directly output your data.
         $output = [];
         foreach( $computers as $computer )
