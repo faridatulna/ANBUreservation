@@ -99,7 +99,7 @@
                                 </td>
                             </tr>
 
-                            <tr class="collapse row{{ $reservation->id}} bg-dark">
+                            <tr class="collapse row{{$reservation->id}} bg-dark">
                                 <th>Nama</th>
                                 <th>NRP</th>
                                 <th>Email</th>
@@ -113,7 +113,7 @@
                                 <td>{{$reservation->email}}</td>
                                 <td>{{$reservation->no_hp}}</td>
                                 <td>
-                                    <form action="" target="_blank">
+                                    <form action="/files/{{$reservation->proposal}}" target="_blank">
                                         <button class="btn btn-primary btn-sm"><i class="fas fa-eye fa-fw"></i>Lihat</button>
                                     </form>
                                 </td>
