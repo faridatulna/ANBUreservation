@@ -40,7 +40,9 @@ class adminlabController extends Controller
         $computer = Computer::where('id_lab',Auth::user()->id_lab)
                             ->paginate(10);
         // $pc = Computer::pluck('no_pc','id');
-        $lab = Laboratory::pluck('nama_lab','id');
+        // $lab = Laboratory::pluck('nama_lab','id');
+        $lab = Laboratory::where('id','=', Auth::user()->id_lab)->get();
+        // return ($lab);
         return view('adminlab.index', compact('reservations','lab','computer'));
     }
 

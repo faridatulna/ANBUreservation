@@ -36,9 +36,9 @@ Route::get('/', function (Request $request) {
 			
 			$reservations->appends($request->only('keyword', 'limit'));	
 	}
-
-    $computer = Computer::pluck('no_pc','id_lab');
-    $lab = Laboratory::pluck('nama_lab','id');
+	$lab = Laboratory::pluck('nama_lab','id');
+	$computer = Computer::pluck('no_pc','id_lab');
+	return $computer;
     return view('welcome', compact('reservations','lab','computer'));
 })->name('welcome');
 

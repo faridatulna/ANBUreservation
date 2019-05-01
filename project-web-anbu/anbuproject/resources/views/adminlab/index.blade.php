@@ -268,14 +268,7 @@
                                 <div class="col-11">
                                     {!! Form::label('no_pc', 'No PC') !!} {!! Form::number('no_pc' ,null , array('class' => 'form-control','placeholder'=>'')) !!}
                                 </div>
-                                <div class="col-11">
-                                    {!! Form::label('id_lab', 'LAB') !!}
-                                    <select name="id_lab" id="LABs">
-                                        @foreach($computer as $m)
-                                        <option value="{{$m->id_lab}}">{{$m->computer->nama_lab}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <input type="hidden" name="id_lab" value="{{ Auth::user()->id_lab }}">
                                 <div class="col-11">
                                     {!! Form::label('status', 'Status') !!}
                                     <select name="status" id="PCs">
