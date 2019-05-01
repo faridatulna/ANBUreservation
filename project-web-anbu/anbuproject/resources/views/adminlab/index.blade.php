@@ -74,7 +74,7 @@
 
                 <div class="table-wrapper">
 
-                    <table>
+                    <table class="table-wrapper">
                         <thead>
                             <tr>
                                 <th>ID Reservasi</th>
@@ -263,6 +263,16 @@
                             </a>
                         </div>
                         <div class="modal-body">
+                            @if ($errors->any())
+                              <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                              </div><br />
+                            @endif
+                            
                             {!! Form::open(array('route' => ('computer.store'))) !!}
                             <div class="row gtr-uniform" style="justify-content: center;">
                                 <div class="col-11">

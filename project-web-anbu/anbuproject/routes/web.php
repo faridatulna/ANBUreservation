@@ -36,19 +36,16 @@ Route::get('/', function (Request $request) {
 			
 			$reservations->appends($request->only('keyword', 'limit'));	
 	}
-	// $lab = Laboratory::pluck('nama_lab','id');
-	// $computer = Computer::pluck('no_pc','id_lab');
 	$lab = Laboratory::all();
 	// return $lab;
     return view('welcome', compact('reservations','lab'));
 })->name('welcome');
 
+
 Route::post( '/get/computer', 'ReservationController@computer' )->name( 'loadComputer' );
 // Route::get( '/get/computer/{id_lab}', 'ReservationController@computer' )->name( 'loadComputer' );
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-
 // admin
 Route::get('/admin', 'adminlabController@index')->name('adminlab.index')->middleware('auth');
 Route::post('adminsetuju/{id}', 'adminlabController@setuju')->name('adminlab.setuju')->middleware('auth');
@@ -68,4 +65,3 @@ Route::resource('computer','ComputerController');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

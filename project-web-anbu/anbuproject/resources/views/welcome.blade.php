@@ -146,7 +146,7 @@
                 <h2>DAFTAR</h2>
                 <br>
 
-                <form method="post" action="{{ route('reservation.store') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('reservation.store') }}#two" enctype="multipart/form-data">
                     @csrf
                     <div class="row gtr-uniform" style="justify-content: center;">
                         <div class="col-6 ">
@@ -156,14 +156,25 @@
                         <div class="col-6">
                             <label for="nrp">NRP</label>
                             <input type="text" name="nrp" id="nrp" value="" placeholder="NRP" required />
+                            @if ($errors->has('nrp'))
+                                @foreach ($errors->get('nrp') as $error)
+                                    <h5 class="alert alert-danger">{{ $error }}</h5>
+                                @endforeach
+                            @endif
                         </div>
                         <div class="col-6">
                             <label for="no_hp">No.TELP</label>
                             <input type="text" name="no_hp" id="no_hp" value="" placeholder="No.TELP" required/>
                         </div>
+
                         <div class="col-6">
                             <label for="email">Email</label>
                             <input type="email" name="email" id="email" value="" placeholder="Email" required />
+                            @if ($errors->has('email'))
+                                @foreach ($errors->get('email') as $error)
+                                    <h5 class="alert alert-danger">{{ $error }}</h5>
+                                @endforeach
+                            @endif
                         </div>
                         <div class="col-6">
                             {!! Form::label('id_lab', 'LAB') !!} 
@@ -173,12 +184,22 @@
                                 <option value="{{$l->id}}">{{$l->nama_lab}}</option>
                                 @endforeach
                             </select>
+                            @if ($errors->has('id_lab'))
+                                @foreach ($errors->get('id_lab') as $error)
+                                    <h5 class="alert alert-danger">{{ $error }}</h5>
+                                @endforeach
+                            @endif
                         </div>
                         <div class="col-6">
                             {!! Form::label('no_pc', 'NO PC') !!}
-                            <select class="form-control" name="no_pc" id="no_pc">
-                                <option value="">wkwk</option>
+                            <select class="form-control" name="no_pc" id="no_pc" required>
+                                <option value="">No PC</option>
                             </select>
+                            @if ($errors->has('no_pc'))
+                                @foreach ($errors->get('no_pc') as $error)
+                                    <h5 class="alert alert-danger">{{ $error }}</h5>
+                                @endforeach
+                            @endif
                         </div>
 
                         <div class="col-7">
@@ -186,6 +207,11 @@
                                 <input name="proposal" id="my-file-selector" type="file" style="display:none" onchange="$('#upload-file-info').html(this.files[0].name)" required> Unggah Berkas
                             </label>
                             <span class='label label-info' id="upload-file-info"></span>
+                            @if ($errors->has('proposal'))
+                                @foreach ($errors->get('proposal') as $error)
+                                    <h5 class="alert alert-danger">{{ $error }}</h5>
+                                @endforeach
+                            @endif
                         </div>
 
                         <div class="col-6">

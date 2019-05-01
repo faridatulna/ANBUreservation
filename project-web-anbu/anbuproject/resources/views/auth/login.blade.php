@@ -39,17 +39,28 @@
                         <div class="inner">
                             <h2> LOGIN</h2>
                             <br>
-                            
+
                             <form method="post" action="{{ route('login') }}">
                                 @csrf
                                 <div class="row gtr-uniform" style="justify-content: center;">
                                     <div class="col-7 ">
-                                        <label for="nama">Email</label>
-                                        <input type="text" name="email" id="email" value="" placeholder="Email" required />
+                                        <label for="email">Email</label>
+                                        <input type="text" name="email" id="email" input=old{email} value="" placeholder="Email" required />
+                                        @if ($errors->has('email'))
+                                            @foreach ($errors->get('email') as $error)
+                                            <h5 class="alert alert-danger">{{ $error }}</h5>
+                                            @endforeach
+                                        @endif
                                     </div>
+                                     
                                     <div class="col-7">
                                         <label for="nrp">Password</label>
                                         <input type="password" name="password" id="pass" value="" placeholder="Password" required />
+                                        @if ($errors->has('password'))
+                                            @foreach ($errors->get('password') as $error)
+                                            <h5 class="alert alert-danger">{{ $error }}</h5>
+                                            @endforeach
+                                        @endif
                                     </div>
                                                     
                                     <div class="col-7">

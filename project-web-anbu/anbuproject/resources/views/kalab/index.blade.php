@@ -72,7 +72,7 @@
                 </form>
 
                 <div class="table-wrapper">
-                    <table>
+                    <table class="table-fixed">
                         <thead>
                             <tr>
                                 <th>ID Reservasi</th>

@@ -36,8 +36,16 @@ class ComputerController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'id' => 'required|numeric',
+            'no_pc' => 'required|unique:computers,no_pc',
+        ]);
+
+        return response()->json('Data Berhasil Ditambahkan');
+
         Computer::create($request->all());
-        return redirect()->back();
+        // return redirect()->back();
+        return redirect(route('adminlab.index') . '#one');
     }
 
     /**
@@ -74,7 +82,8 @@ class ComputerController extends Controller
         //
         $computer = Computer::findorfail($id);
         $computer->update($request->all());
-        return redirect()->back();
+        return redirect(route('adminlab.index') . '#one');
+        //return redirect()->back();
     }
 
     /**
@@ -88,6 +97,7 @@ class ComputerController extends Controller
         //
         $computer = Computer::findOrFail($id);       
         $computer->delete();
-        return redirect()->back();
+        return redirect(route('adminlab.index') . '#one');
+        //return redirect()->back();
     }
 }

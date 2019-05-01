@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class adminlabController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('logout');
+    }
+
     //
      /**
      * Show the application dashboard.

@@ -49,9 +49,20 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'proposal' => 'required|file|mimes:pdf'
+
+        $this->validate($request,[
+            'proposal' => 'required|file|mimes:pdf',
+            'nrp' => 'required|numeric|unique:reservations,nrp|digits:14',
+            'email' => 'unique:reservations,email',
+            'id_lab' => 'required'
+        ],[
+            'proposal.mimes' => 'Format proposal adalah (.pdf)',
+            'nrp.unique' => 'NRP telah digunakan sebagai akun lain',
+            'nrp.digits' => 'NRP baru (14 digits) ex: 051116000xxxx'
+            'email.unique' => 'Email telah digunakan sebagai akun lain',
         ]);
+
+        return response()->json('Data Berhasil Ditambahkan');
 
         $reservation = new Reservation;
         $reservation->nama = $request->nama;
@@ -60,6 +71,7 @@ class ReservationController extends Controller
         $reservation->id_lab = $request->id_lab;
         $reservation->no_pc = $request->no_pc;
         $reservation->no_hp = $request->no_hp;
+
 		//File Upload
 		$file = $request->file('proposal');
 		$inputFile['namafile'] = time().".".$file->getClientOriginalExtension();
@@ -70,7 +82,9 @@ class ReservationController extends Controller
         $reservation->status = 0;
         $reservation->tgl_pinjam = Carbon::now();
         $reservation->save();
-        return redirect()->route('welcome');
+
+        return redirect(route('welcome') . '#two');
+        //return redirect(url()->current() . "#two");
     }
 
     /**
