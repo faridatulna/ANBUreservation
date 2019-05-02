@@ -192,7 +192,7 @@
                         </div>
                         <div class="col-6">
                             {!! Form::label('no_pc', 'NO PC') !!}
-                            <select class="form-control" name="no_pc" id="no_pc" required>
+                            <select class="form-control" name="no_pc" id="no_pc">
                                 <option value="">No PC</option>
                             </select>
                             <!-- @if ($errors->has('no_pc'))

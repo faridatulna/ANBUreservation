@@ -15,11 +15,6 @@ use App\Laboratory;
 use App\Computer;
 use Illuminate\Http\Request;
 
-// Reservation
-Route::resource('reservation','ReservationController')->only([
-    'store'
-]);
-
 Route::get('/', function (Request $request) {
 
 	if(!$request->keyword) {
@@ -62,5 +57,8 @@ Route::post('kalabsetuju/{id}', 'kalabController@setuju')->name('kalab.setuju')-
 
 //resources
 Route::resource('computer','ComputerController');
+Route::resource('reservation','ReservationController')->only([
+	'index', 'store'
+]);
 
 Auth::routes();

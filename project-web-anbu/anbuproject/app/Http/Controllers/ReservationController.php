@@ -16,6 +16,7 @@ class ReservationController extends Controller
         {
             $output[$computer->id] = $computer->no_pc;
         }
+        sort($output);
         return $output;
     }
     /**
@@ -25,7 +26,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return back();
+        return redirect('/');
     }
     /**
      * Show the form for creating a new resource.
@@ -52,7 +53,7 @@ class ReservationController extends Controller
             'proposal.mimes' => 'Format proposal adalah (.pdf)',
             'nrp.unique' => 'NRP telah digunakan sebagai akun lain',
             'nrp.digits' => 'NRP baru (14 digits) ex: 051116000xxxx',
-            'email.unique' => 'Email telah digunakan sebagai akun lain',
+            'email.unique' => 'Email telah digunakan sebagai akun lain'
         ]);
 
         $reservation = new Reservation;
@@ -72,7 +73,9 @@ class ReservationController extends Controller
         $reservation->status = 0;
         $reservation->tgl_pinjam = Carbon::now();
         $reservation->save();
-        return redirect()->route('welcome');
+
+        return redirect(route('welcome') . '#two')->with('status', 'Data Berhasil Ditambahkan');
+        //return redirect(url()->current() . "#two");
     }
     /**
      * Display the specified resource.
