@@ -64,4 +64,3 @@ Route::post('kalabsetuju/{id}', 'kalabController@setuju')->name('kalab.setuju')-
 Route::resource('computer','ComputerController');
 
 Auth::routes();
-

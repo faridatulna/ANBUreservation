@@ -146,7 +146,7 @@
                 <h2>DAFTAR</h2>
                 <br>
 
-                <form method="post" action="{{ route('reservation.store') }}#two" enctype="multipart/form-data">
+                <form method="post" action="{{ route('reservation.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row gtr-uniform" style="justify-content: center;">
                         <div class="col-6 ">
@@ -184,22 +184,22 @@
                                 <option value="{{$l->id}}">{{$l->nama_lab}}</option>
                                 @endforeach
                             </select>
-                            @if ($errors->has('id_lab'))
+                            <!-- @if ($errors->has('id_lab'))
                                 @foreach ($errors->get('id_lab') as $error)
                                     <h5 class="alert alert-danger">{{ $error }}</h5>
                                 @endforeach
-                            @endif
+                            @endif -->
                         </div>
                         <div class="col-6">
                             {!! Form::label('no_pc', 'NO PC') !!}
                             <select class="form-control" name="no_pc" id="no_pc" required>
                                 <option value="">No PC</option>
                             </select>
-                            @if ($errors->has('no_pc'))
+                            <!-- @if ($errors->has('no_pc'))
                                 @foreach ($errors->get('no_pc') as $error)
                                     <h5 class="alert alert-danger">{{ $error }}</h5>
                                 @endforeach
-                            @endif
+                            @endif -->
                         </div>
 
                         <div class="col-7">
@@ -255,6 +255,7 @@
     <script src="{{ asset('theme2/assets/js/breakpoints.min.js') }}" defer></script>
     <script src="{{ asset('theme2/assets/js/util.js') }}" defer></script>
     <script src="{{ asset('theme2/assets/js/main.js') }}" defer></script>
+
     <script>
         $('#id_lab').change(function(){
             $("#no_pc option").remove();
