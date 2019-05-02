@@ -19,6 +19,7 @@ class ReservationController extends Controller
         {
             $output[$computer->id] = $computer->no_pc;
         }
+        sort($output);
         return $output;
     }
     /**
@@ -28,7 +29,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return back();
+        return redirect('/');
     }
 
     /**
@@ -58,11 +59,11 @@ class ReservationController extends Controller
         ],[
             'proposal.mimes' => 'Format proposal adalah (.pdf)',
             'nrp.unique' => 'NRP telah digunakan sebagai akun lain',
-            'nrp.digits' => 'NRP baru (14 digits) ex: 051116000xxxx'
-            'email.unique' => 'Email telah digunakan sebagai akun lain',
+            'nrp.digits' => 'NRP baru (14 digits) ex: 051116000xxxx',
+            'email.unique' => 'Email telah digunakan sebagai akun lain'
         ]);
 
-        return response()->json('Data Berhasil Ditambahkan');
+        // return response()->json('Data Berhasil Ditambahkan');
 
         $reservation = new Reservation;
         $reservation->nama = $request->nama;
@@ -83,7 +84,7 @@ class ReservationController extends Controller
         $reservation->tgl_pinjam = Carbon::now();
         $reservation->save();
 
-        return redirect(route('welcome') . '#two');
+        return redirect(route('welcome') . '#two')->with('status', 'Data Berhasil Ditambahkan');
         //return redirect(url()->current() . "#two");
     }
 
