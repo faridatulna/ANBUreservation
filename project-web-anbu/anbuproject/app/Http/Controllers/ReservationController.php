@@ -53,7 +53,7 @@ class ReservationController extends Controller
             'proposal.mimes' => 'Format proposal adalah (.pdf)',
             'nrp.unique' => 'NRP telah digunakan sebagai akun lain',
             'nrp.digits' => 'NRP baru (14 digits) ex: 051116000xxxx',
-            'email.unique' => 'Email telah digunakan sebagai akun lain'
+            'email.unique' => 'Email telah digunakan sebagai akun lain',
         ]);
 
         $reservation = new Reservation;
