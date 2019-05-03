@@ -49,11 +49,13 @@ class ReservationController extends Controller
             'proposal' => 'required|file|mimes:pdf',
             'nrp' => 'required|numeric|unique:reservations,nrp|digits:14',
             'email' => 'unique:reservations,email',
+            'no_hp' => 'required|numeric|min:8',
         ],[
             'proposal.mimes' => 'Format proposal adalah (.pdf)',
             'nrp.unique' => 'NRP telah digunakan sebagai akun lain',
             'nrp.digits' => 'NRP baru (14 digits) ex: 051116000xxxx',
             'email.unique' => 'Email telah digunakan sebagai akun lain',
+            'no_hp.numeric' => 'No Hp harus angka',
         ]);
 
         $reservation = new Reservation;
