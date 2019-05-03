@@ -41,19 +41,25 @@ Route::post( '/get/computer', 'ReservationController@computer' )->name( 'loadCom
 // Route::get( '/get/computer/{id_lab}', 'ReservationController@computer' )->name( 'loadComputer' );
 
 Auth::routes();
+
 // admin
-Route::get('/admin', 'adminlabController@index')->name('adminlab.index')->middleware('auth');
-Route::post('adminsetuju/{id}', 'adminlabController@setuju')->name('adminlab.setuju')->middleware('auth');
+// Route::get('/admin', function(){
+// 	return 'you are admin';
+// })->middleware(['auth','auth.admin']);
+
+Route::get('/admin', 'adminlabController@index')->name('adminlab.index')->middleware(['auth','auth.admin']);
+Route::post('adminsetuju/{id}', 'adminlabController@setuju')->name('adminlab.setuju')->middleware(['auth','auth.admin']);
 
 // download files
 Route::get('/download/{id}', function ($filename) {
     $file= public_path('files/').$filename;
     return response()->download($file, $filename);
-})->middleware('auth')->name('getDownload');
+})->middleware(['auth','auth.admin'])->name('getDownload');
+
 
 // kalab
-Route::get('/kalab', 'kalabController@index')->name('kalab.index')->middleware('auth');
-Route::post('kalabsetuju/{id}', 'kalabController@setuju')->name('kalab.setuju')->middleware('auth');
+Route::get('/kalab', 'kalabController@index')->name('kalab.index')->middleware(['auth','auth.kalab']);
+Route::post('kalabsetuju/{id}', 'kalabController@setuju')->name('kalab.setuju')->middleware(['auth','auth.kalab']);
 
 //resources
 Route::resource('computer','ComputerController');

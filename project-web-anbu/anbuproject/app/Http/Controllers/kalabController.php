@@ -7,14 +7,14 @@ use App\Reservation;
 
 class kalabController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    // /**
+    //  * Create a new controller instance.
+    //  *
+    //  * @return void
+    //  */
     public function __construct()
     {
-        $this->middleware('auth')->except('logout');
+        $this->middleware(['auth','auth.kalab'])->except('logout');
     }
 
     //

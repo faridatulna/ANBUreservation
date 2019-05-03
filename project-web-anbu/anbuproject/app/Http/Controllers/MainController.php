@@ -44,7 +44,7 @@ class MainController extends Controller
     function logout()
     {
          Auth::logout();
-         return redirect('auth.login');
+         return redirect()->route('login');
     }
 }
 
