@@ -263,25 +263,16 @@
                             </a>
                         </div>
                         <div class="modal-body">
-                            @if ($errors->any())
-                              <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                      <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                              </div><br />
-                            @endif
                             
                             {!! Form::open(array('route' => ('computer.store'))) !!}
                             <div class="row gtr-uniform" style="justify-content: center;">
                                 <div class="col-11">
-                                    {!! Form::label('no_pc', 'No PC') !!} {!! Form::number('no_pc' ,null , array('class' => 'form-control','placeholder'=>'')) !!}
+                                    {!! Form::label('no_pc', 'No PC') !!} {!! Form::number('no_pc' ,null , array('class' => 'form-control','placeholder'=>'','required')) !!}
                                 </div>
                                 <input type="hidden" name="id_lab" value="{{ Auth::user()->id_lab }}">
                                 <div class="col-11">
                                     {!! Form::label('status', 'Status') !!}
-                                    <select name="status" id="PCs">
+                                    <select name="status" id="PCs" required>
                                         <option value="">- Status PC -</option>
                                         <option value="0">Tersedia</option>
                                         <option value="1">Pengajuan</option>

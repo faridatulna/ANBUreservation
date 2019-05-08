@@ -193,7 +193,7 @@
                         <div class="col-6">
                             {!! Form::label('no_pc', 'NO PC') !!}
                             <select class="form-control" name="no_pc" id="no_pc">
-                                <option value="">No PC</option>
+                                <option value=""></option>
                             </select>
                             <!-- @if ($errors->has('no_pc'))
                                 @foreach ($errors->get('no_pc') as $error)
@@ -261,7 +261,7 @@
             $("#no_pc option").remove();
             let id = $(this).find(":selected").val();
             // alert(id);
-            // $('#no_pc').append($('<option value="">09283982</option>'));
+            //$('#no_pc').append($('<option value="">09283982</option>'));
             $.ajax({
                 url : '{{ route( 'loadComputer' ) }}',
                 data: {
@@ -272,9 +272,8 @@
                 dataType: 'json',
                 success: function( result )
                 {
-                    // console.log(data);
                     $.each( result, function(k, v) {
-                            $('#no_pc').append($('<option>', {value:k, text:v}));
+                        $('#no_pc').append($('<option>', {value:k, text:v}));
                     });
                 },
                 error: function()
