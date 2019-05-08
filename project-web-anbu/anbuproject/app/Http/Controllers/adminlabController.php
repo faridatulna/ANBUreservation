@@ -30,8 +30,8 @@ class adminlabController extends Controller
     public function index(Request $request)
     {
 		if(!$request->keyword){
-			$reservations = Reservation::/*where('id_lab',Auth::user()->id_lab)
-										->*/where('status',0)
+			$reservations = Reservation::where('id_lab',Auth::user()->id_lab)
+										->where('status',0)
 										->paginate(5);
 										//->get();
 		} else {				
